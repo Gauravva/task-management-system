@@ -14,7 +14,7 @@ public class UserValidator {
     public void validateEmailUniqueness(String email) {
 
         if (userRepo.findByEmail(email).isPresent()) {
-            throw new EmailAlreadyExistsException("Email already exists");
+            throw new EmailAlreadyExistsException("User already exists");
         }
     }
 

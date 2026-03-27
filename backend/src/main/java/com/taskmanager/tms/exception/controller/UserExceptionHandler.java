@@ -1,5 +1,6 @@
 package com.taskmanager.tms.exception.controller;
 
+import com.taskmanager.tms.exception.exceptions.EmailAlreadyExistsException;
 import com.taskmanager.tms.exception.exceptions.ResourceNotFoundException;
 import com.taskmanager.tms.exception.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
@@ -57,6 +58,16 @@ public class UserExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(EmailAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleEmailAlreadyExistsException(EmailAlreadyExistsException ex) {
+
+        ErrorResponse error = ErrorResponse.builder()
+                .status(HttpStatus.CONFLICT.value())
+                .error(ex.getMessage())
+                .build();
+        return new ResponseEntity<>(error, HttpStatus.CONFLICT);
     }
 
 }
